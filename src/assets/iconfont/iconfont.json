@@ -1,0 +1,65 @@
+{
+  "id": "1818285",
+  "name": "vx房地产项目",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "vx房地产项目",
+  "glyphs": [
+    {
+      "icon_id": "4838212",
+      "name": "房地产 建筑",
+      "font_class": "build",
+      "unicode": "e60c",
+      "unicode_decimal": 58892
+    },
+    {
+      "icon_id": "5388028",
+      "name": "地图_定位_o",
+      "font_class": "location",
+      "unicode": "ebbb",
+      "unicode_decimal": 60347
+    },
+    {
+      "icon_id": "8353912",
+      "name": "主页",
+      "font_class": "home",
+      "unicode": "e62b",
+      "unicode_decimal": 58923
+    },
+    {
+      "icon_id": "14707758",
+      "name": "主页",
+      "font_class": "home-active",
+      "unicode": "ebbc",
+      "unicode_decimal": 60348
+    },
+    {
+      "icon_id": "14707778",
+      "name": "房地产 建筑",
+      "font_class": "build-active",
+      "unicode": "ebbd",
+      "unicode_decimal": 60349
+    },
+    {
+      "icon_id": "14707782",
+      "name": "地图_定位_o",
+      "font_class": "location-active",
+      "unicode": "ebbe",
+      "unicode_decimal": 60350
+    },
+    {
+      "icon_id": "13544024",
+      "name": "用户",
+      "font_class": "user",
+      "unicode": "e60f",
+      "unicode_decimal": 58895
+    },
+    {
+      "icon_id": "14707857",
+      "name": "用户",
+      "font_class": "user-active",
+      "unicode": "ebbf",
+      "unicode_decimal": 60351
+    }
+  ]
+}
