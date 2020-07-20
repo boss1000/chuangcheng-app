@@ -20,18 +20,28 @@ export default {
     return {
       tabbars: [
         {
-          title: '首页',
+          title: '一手楼盘',
           to: {
             name: 'Home'
           },
-          icon: 'home-o'
+          normal: require('@/assets/ic_shouyeblack@3x.png'),
+          active: require('@/assets/ic_shouye@3x.png')
         },
         {
-          title: '关于我',
+          title: '',
+          to: {
+            name: 'Home'
+          },
+          normal: require('@/assets/ic_qipao@3x.png'),
+          active: require('@/assets/ic_qipao@3x.png')
+        },
+        {
+          title: '个人管理',
           to: {
             name: 'About'
           },
-          icon: 'user-o'
+          normal: require('@/assets/ic_meblack@3x.png'),
+          active: require('@/assets/ic_me@3x.png')
         }
       ]
     }

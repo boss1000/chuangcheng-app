@@ -10,6 +10,8 @@ import store from './store'
 
 // 设置 js中可以访问 $cdn
 import { $cdn } from '@/config'
+import VueTouch from 'vue-touch'
+
 Vue.prototype.$cdn = $cdn
 
 // 全局引入按需引入UI库 vant
@@ -22,6 +24,7 @@ import 'lib-flexible/flexible.js'
 // filters
 import './filters'
 Vue.config.productionTip = false
+Vue.use(VueTouch, { name: 'v-touch' })
 
 new Vue({
   el: '#app',

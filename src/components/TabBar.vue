@@ -1,8 +1,11 @@
 <template>
   <div>
     <van-tabbar fixed route v-model="active" @change="handleChange">
-      <van-tabbar-item v-for="(item, index) in data" :to="item.to" :icon="item.icon" :key="index">
+      <van-tabbar-item v-for="(item, index) in data" :to="item.to" :key="index">
         {{ item.title }}
+        <template #icon="props">
+          <img :src="props.active ? item.active : item.normal" />
+        </template>
       </van-tabbar-item>
     </van-tabbar>
   </div>
@@ -36,7 +39,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style lang="scss" scoped>
 h3 {
   margin: 40px 0 0;
 }
@@ -50,5 +53,19 @@ li {
 }
 a {
   color: #42b983;
+}
+/deep/ .van-tabbar-item__icon {
+  img {
+    height: 28px;
+  }
+}
+.van-tabbar-item:nth-child(2) {
+  /deep/ .van-tabbar-item__icon {
+    top: -15px;
+    z-index: 10;
+    img {
+      height: 50px;
+    }
+  }
 }
 </style>

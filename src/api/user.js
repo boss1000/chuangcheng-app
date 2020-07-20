@@ -1,32 +1,55 @@
-import api from './index'
-// axios
 import request from '@/utils/request'
 
-// 登录
-export function login(data) {
+// 判读是否登录
+export function IsLogin(data) {
   return request({
-    url: api.Login,
+    url: '/api/Login/IsLogin',
+    method: 'get',
+    params: data
+  })
+}
+
+// 登录
+export function GetUserInfo(data) {
+  return request({
+    url: '/api/Login/GetUserInfo',
     method: 'post',
     data
   })
 }
 
-// 用户信息 post 方法
-export function getUserInfo(data) {
+// 注册
+export function RegisterAccount(data) {
   return request({
-    url: api.UserInfo,
+    url: '/api/Register/RegisterAccount',
     method: 'post',
-    data,
-    hideloading: true
+    data
   })
 }
 
-// 用户名称 get 方法
-export function getUserName(params) {
+// 验证用户名
+export function CheckAccount(data) {
   return request({
-    url: api.UserName,
+    url: '/api/Register/CheckAccount',
     method: 'get',
-    params,
-    hideloading: true
+    params: data
+  })
+}
+
+// 验证手机号
+export function CheckMobile(data) {
+  return request({
+    url: '/api/Register/CheckMobile',
+    method: 'get',
+    params: data
+  })
+}
+
+// 验证昵称
+export function CheckNickName(data) {
+  return request({
+    url: '/api/Register/CheckNickName',
+    method: 'get',
+    params: data
   })
 }

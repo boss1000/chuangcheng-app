@@ -3,6 +3,8 @@ import store from '@/store'
 import { Toast } from 'vant'
 // 根据环境不同引入不同api地址
 import { baseApi } from '@/config'
+import { getLocalStore } from '@/utils/auth'
+
 // create an axios instance
 const service = axios.create({
   baseURL: baseApi, // url = base api url + request url
@@ -21,7 +23,7 @@ service.interceptors.request.use(
       })
     }
     if (store.getters.token) {
-      config.headers['X-Token'] = ''
+      config.headers['Authorization'] = 'Bearer ' + getLocalStore('login_token')
     }
     return config
   },
