@@ -1,42 +1,10 @@
 <template>
   <div id="login">
-    <van-nav-bar class="commonTitle" title="登陆" />
+    <!-- <van-nav-bar class="commonTitle" title="登陆" /> -->
     <div class="loginBox">
       <div class="auth-form">
         <v-touch v-on:swipeleft="onSwipeLeft" v-on:swiperight="onSwipeRight">
           <van-tabs v-model="active">
-            <van-tab :title="loginPage.title">
-              <!-- 账号密码登录 -->
-              <van-form @submit="loginForm">
-                <van-cell-group>
-                  <!-- <van-field
-                    v-model="loginData.account"
-                    :border="false"
-                    label="账号"
-                    maxlength="11"
-                    placeholder="请输入账号"
-                    :rules="[{ validator: phoneValidator, message: validator.phoneMessage }]"
-                  />-->
-                  <van-field
-                    v-model="loginData.password"
-                    :border="false"
-                    type="password"
-                    label="密码"
-                    placeholder="请输入密码"
-                    :rules="[{ required: true, message: '请输入密码' }]"
-                  />
-                </van-cell-group>
-                <van-button
-                  type="info"
-                  size="large"
-                  style="margin-top:1rem"
-                  native-type="submit"
-                  :loading="loginloading"
-                  loading-text="登录中..."
-                  loading-type="spinner"
-                >登录</van-button>
-              </van-form>
-            </van-tab>
             <!-- 注册 -->
             <van-tab :title="loginPage.resgin">
               <van-form ref="registerPage">
@@ -92,6 +60,37 @@
                 >注册</van-button>
               </van-form>
             </van-tab>
+            <van-tab :title="loginPage.title">
+              <!-- 账号密码登录 -->
+              <van-form @submit="loginForm">
+                <van-cell-group>
+                  <van-field
+                    v-model="loginData.account"
+                    :border="false"
+                    label="账号"
+                    placeholder="请输入账号"
+                    :rules="[{ required: true, message: '请输入账号' }]"
+                  />
+                  <van-field
+                    v-model="loginData.password"
+                    :border="false"
+                    type="password"
+                    label="密码"
+                    placeholder="请输入密码"
+                    :rules="[{ required: true, message: '请输入密码' }]"
+                  />
+                </van-cell-group>
+                <van-button
+                  type="info"
+                  size="large"
+                  style="margin-top:1rem"
+                  native-type="submit"
+                  :loading="loginloading"
+                  loading-text="登录中..."
+                  loading-type="spinner"
+                >登录</van-button>
+              </van-form>
+            </van-tab>
           </van-tabs>
         </v-touch>
       </div>
@@ -111,7 +110,7 @@ export default {
   data() {
     return {
       countDown: 0, // 倒计时
-      active: 0,
+      active: 1,
       loginloading: false,
       loginPage: {
         title: '登录',
@@ -213,7 +212,7 @@ export default {
     background-color: #fff;
     .auth-form {
       position: relative;
-      top: 20px;
+      top: 50px;
       margin: 18px;
       width: 28.5rem;
       max-width: 90%;
