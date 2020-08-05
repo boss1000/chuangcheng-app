@@ -4,52 +4,64 @@
     <div class="loginBox">
       <div class="auth-form">
         <v-touch v-on:swipeleft="onSwipeLeft" v-on:swiperight="onSwipeRight">
-          <van-tabs v-model="active">
+          <van-tabs v-model="active" color="#1989fa">
             <!-- 注册 -->
             <van-tab :title="loginPage.resgin">
               <van-form ref="registerPage">
                 <van-cell-group>
                   <van-field
-                    v-model="register.code"
+                    class="one-pixel-line shadow"
+                    v-model="loginData.FAccount"
                     :border="false"
-                    type="text"
                     placeholder="请输入账号"
                     :rules="[{ required: true, message: '请输入账号' }]"
-                  />
-                  <!-- <van-field
-                  name="postPhone"
-                  v-model="register.mobile"
-                  :border="false"
-                  maxlength="11"
-                  label="手机号"
-                  type="number"
-                  placeholder="请输入手机号"
-                  :rules="[{ required: true,validator: phoneValidator, message: validator.phoneMessage }]"
-                ></van-field>
-                <van-field
-                  v-model="register.userName"
-                  :border="false"
-                  type="text"
-                  label="姓名"
-                  placeholder="请输入姓名"
-                  :rules="[{ required: true, message: '请输入姓名' }]"
-                />
-                <van-field
-                  v-model="register.storeName"
-                  :border="false"
-                  type="text"
-                  label="门店"
-                  placeholder="请输入门店"
-                  :rules="[{ required: true, message: '请输入门店' }]"
-                />
-                <van-field
-                  v-model="register.orginpassWord"
-                  :border="false"
-                  type="text"
-                  label="登录密码"
-                  placeholder="请输入密码"
-                  :rules="[{ required: true, message: '请输入密码' }]"
-                  />-->
+                  >
+                    <template #left-icon>
+                      <svg-icon icon-class="username" />
+                    </template>
+                  </van-field>
+                  <van-field
+                    v-model="loginData.fristPwd"
+                    :border="false"
+                    type="password"
+                    placeholder="请输入密码"
+                    :rules="[{ required: true, message: '请输入密码' }]"
+                  >
+                    <template #left-icon>
+                      <svg-icon icon-class="passwaord" />
+                    </template>
+                  </van-field>
+                  <van-field
+                    v-model="loginData.secondPwd"
+                    :border="false"
+                    type="password"
+                    placeholder="请确认密码"
+                    :rules="[{ required: true, message: '请确认密码' }]"
+                  >
+                    <template #left-icon>
+                      <svg-icon icon-class="passwaord" />
+                    </template>
+                  </van-field>
+                  <van-field
+                    v-model="loginData.FMobile"
+                    :border="false"
+                    placeholder="请输入手机号"
+                    :rules="[{ required: true, message: '请输入手机号' }]"
+                  >
+                    <template #left-icon>
+                      <svg-icon icon-class="phone" />
+                    </template>
+                  </van-field>
+                  <van-field
+                    v-model="loginData.FNickName"
+                    :border="false"
+                    placeholder="请输入姓名"
+                    :rules="[{ required: true, message: '请输入姓名' }]"
+                  >
+                    <template #left-icon>
+                      <svg-icon icon-class="name" />
+                    </template>
+                  </van-field>
                 </van-cell-group>
                 <van-button
                   type="info"
@@ -65,20 +77,26 @@
               <van-form @submit="loginForm">
                 <van-cell-group>
                   <van-field
-                    v-model="loginData.account"
+                    v-model="loginData.UserName"
                     :border="false"
-                    label="账号"
                     placeholder="请输入账号"
                     :rules="[{ required: true, message: '请输入账号' }]"
-                  />
+                  >
+                    <template #left-icon>
+                      <svg-icon icon-class="username" />
+                    </template>
+                  </van-field>
                   <van-field
-                    v-model="loginData.password"
+                    v-model="loginData.UserPwd"
                     :border="false"
                     type="password"
-                    label="密码"
                     placeholder="请输入密码"
                     :rules="[{ required: true, message: '请输入密码' }]"
-                  />
+                  >
+                    <template #left-icon>
+                      <svg-icon icon-class="passwaord" />
+                    </template>
+                  </van-field>
                 </van-cell-group>
                 <van-button
                   type="info"
@@ -122,24 +140,17 @@ export default {
         cardMessage: '请输入身份证号码'
       },
       loginData: {
-        wxCode: '',
-        account: '', // 用户名
-        password: '' // 用户密码
+        UserName: '', // 用户名
+        UserPwd: '' // 用户密码
       },
       register: {
-        mobile: '', // 手机号
-        code: '', // 验证码
-        userName: '', // 用户名
-        storeName: '', // 门店
-        idCard: '', // 身份证
-        orginpassWord: '', // 密码
-        passWord: ''
-      },
-      imgCaptcha: '', // 图片验证码
-      smsCaptcha: '', // 短信验证码
-      isShowSMSLogin: true, // 是否短信登录
-      smsCaptchaResult: null,
-      userInfo: null
+        FAccount: '', // 用户
+        fristPwd: '',
+        secondPwd: '',
+        FPwd: '', // 密码
+        FMobile: '', // 手机号
+        FNickName: '' // 昵称
+      }
     }
   },
   computed: {
@@ -220,8 +231,49 @@ export default {
       background-color: #fff;
       border-radius: 8px;
       box-sizing: border-box;
+      .van-cell {
+        // padding: 0;
+        // padding-bottom: 5px;
+        // margin-bottom: 5px;
+      }
       /deep/ .van-tabs__content {
         margin-top: 20px;
+      }
+      /deep/.van-field__left-icon {
+        height: 30px;
+        width: 32px;
+        margin: 0;
+        padding: 0 12px 0px 0;
+        border-bottom: solid 1px #ccc;
+        .svg-icon {
+          height: 100%;
+          width: 100%;
+        }
+      }
+      /deep/.van-cell__value {
+        font-size: 18px;
+      }
+      /deep/.van-field__value .van-field__control {
+        border: none;
+        border-bottom: solid 1px #ccc;
+        padding: 0 5px 5px 0;
+        margin-bottom: 5px;
+        .el-select {
+          width: 100%;
+
+          .el-input__inner {
+            height: 25px;
+            line-height: 25px;
+            border: none;
+            padding: 0;
+          }
+        }
+      }
+      /deep/.van-field--error {
+        .van-field__left-icon,
+        .van-field__value .van-field__control {
+          border-bottom: solid 1px #ee0a24 !important;
+        }
       }
     }
     img {
