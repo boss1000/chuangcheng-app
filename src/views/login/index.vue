@@ -11,17 +11,19 @@
                 <van-cell-group>
                   <van-field
                     class="one-pixel-line shadow"
-                    v-model="loginData.FAccount"
+                    v-model.trim="loginData.FAccount"
                     :border="false"
                     placeholder="请输入账号"
-                    :rules="[{ required: true, message: '请输入账号' }]"
+                    :rules="[{ required: true,validator: FAccountValidator, message: (value, rule) => {
+                      return msg.FAccountMsg
+                    } }]"
                   >
                     <template #left-icon>
                       <svg-icon icon-class="username" />
                     </template>
                   </van-field>
                   <van-field
-                    v-model="loginData.fristPwd"
+                    v-model.trim="loginData.fristPwd"
                     :border="false"
                     type="password"
                     placeholder="请输入密码"
@@ -32,31 +34,37 @@
                     </template>
                   </van-field>
                   <van-field
-                    v-model="loginData.secondPwd"
+                    v-model.trim="loginData.secondPwd"
                     :border="false"
                     type="password"
                     placeholder="请确认密码"
-                    :rules="[{ required: true, message: '请确认密码' }]"
+                    :rules="[{ required: true,validator: PwdValidator, message: (value, rule) => {
+                      return msg.PwdMsg
+                    } }]"
                   >
                     <template #left-icon>
                       <svg-icon icon-class="passwaord" />
                     </template>
                   </van-field>
                   <van-field
-                    v-model="loginData.FMobile"
+                    v-model.trim="loginData.FMobile"
                     :border="false"
                     placeholder="请输入手机号"
-                    :rules="[{ required: true, message: '请输入手机号' }]"
+                    :rules="[{ required: true,validator: PhoneValidator, message: (value, rule) => {
+                      return msg.PhoneMsg
+                    } }]"
                   >
                     <template #left-icon>
                       <svg-icon icon-class="phone" />
                     </template>
                   </van-field>
                   <van-field
-                    v-model="loginData.FNickName"
+                    v-model.trim="loginData.FNickName"
                     :border="false"
-                    placeholder="请输入姓名"
-                    :rules="[{ required: true, message: '请输入姓名' }]"
+                    placeholder="请输入昵称"
+                    :rules="[{ required: true,validator: NickValidator, message: (value, rule) => {
+                      return msg.NickMsg
+                    } }]"
                   >
                     <template #left-icon>
                       <svg-icon icon-class="name" />
@@ -68,16 +76,17 @@
                   size="large"
                   style="margin-top:1rem"
                   native-type="submit"
+                  :loading="registerloading"
                   @click="registerForm"
                 >注册</van-button>
               </van-form>
             </van-tab>
             <van-tab :title="loginPage.title">
               <!-- 账号密码登录 -->
-              <van-form @submit="loginForm">
+              <van-form ref="loginPage" @submit="loginForm">
                 <van-cell-group>
                   <van-field
-                    v-model="loginData.UserName"
+                    v-model.trim="loginData.UserName"
                     :border="false"
                     placeholder="请输入账号"
                     :rules="[{ required: true, message: '请输入账号' }]"
@@ -87,7 +96,7 @@
                     </template>
                   </van-field>
                   <van-field
-                    v-model="loginData.UserPwd"
+                    v-model.trim="loginData.UserPwd"
                     :border="false"
                     type="password"
                     placeholder="请输入密码"
@@ -118,18 +127,16 @@
 
 <script type="text/javascript">
 // 引入Vant的组件
-// import { Toast } from 'vant'
+import { Toast } from 'vant'
 // import { mapGetters } from 'vuex'
-// import { register, getCode } from '@/api/user'
-// import { setLocalStore, getLocalStore } from '@/utils/auth.js'
-// import md5 from 'js-md5'
-// const Base64 = require('js-base64').Base64
+import { CheckAccount, CheckMobile, CheckNickName } from '@/api/user'
 export default {
   data() {
     return {
       countDown: 0, // 倒计时
       active: 1,
       loginloading: false,
+      registerloading: false,
       loginPage: {
         title: '登录',
         resgin: '注册'
@@ -150,6 +157,12 @@ export default {
         FPwd: '', // 密码
         FMobile: '', // 手机号
         FNickName: '' // 昵称
+      },
+      msg: {
+        FAccountMsg: '请输入账号',
+        PwdMsg: '请输入密码',
+        PhoneMsg: '请输入手机号',
+        NickMsg: '请输入昵称'
       }
     }
   },
@@ -176,13 +189,89 @@ export default {
   },
   watch: {
     active() {
-      // if (this.$refs.registerPage) {
-      //   this.$refs.registerPage.resetValidation()
-      // }
+      if (this.$refs.registerPage) {
+        this.$refs.registerPage.resetValidation()
+      }
+      if (this.$refs.loginPage) {
+        this.$refs.loginPage.resetValidation()
+      }
     }
   },
   created() {},
   methods: {
+    FAccountValidator(val) {
+      return new Promise(resolve => {
+        CheckAccount({ FAccount: val }).then(data => {
+          let isSure = true
+          if (data.code === 1) {
+            if (data.object === 1) {
+              this.msg.FAccountMsg = '用户名重复，请重新输入'
+              isSure = false
+            } else {
+              isSure = true
+            }
+          } else {
+            this.msg.FAccountMsg = '请求失败'
+            isSure = false
+          }
+
+          resolve(isSure)
+        })
+      })
+    },
+    PwdValidator(val) {
+      if (this.loginData.fristPwd === val) {
+        return true
+      } else {
+        this.msg.PwdMsg = '密码不一致，请重新输入'
+        return false
+      }
+    },
+    PhoneValidator(val) {
+      const testPhone = /^1[34578]\d{9}$/
+      if (!testPhone.test(val)) {
+        this.msg.PhoneMsg = '请输入正确的手机号'
+        return false
+      }
+      return new Promise(resolve => {
+        CheckMobile({ FMobile: val }).then(data => {
+          let isSure = true
+          if (data.code === 1) {
+            if (data.object === 1) {
+              this.msg.PhoneMsg = '手机号重复，请重新输入'
+              isSure = false
+            } else {
+              isSure = true
+            }
+          } else {
+            this.msg.PhoneMsg = '请求失败'
+            isSure = false
+          }
+
+          resolve(isSure)
+        })
+      })
+    },
+    NickValidator(val) {
+      return new Promise(resolve => {
+        CheckNickName({ FNickName: val }).then(data => {
+          let isSure = true
+          if (data.code === 1) {
+            if (data.object === 1) {
+              this.msg.NickMsg = '昵称重复，请重新输入'
+              isSure = false
+            } else {
+              isSure = true
+            }
+          } else {
+            this.msg.NickMsg = '请求失败'
+            isSure = false
+          }
+
+          resolve(isSure)
+        })
+      })
+    },
     onSwipeLeft() {
       if (this.active === 1) {
         this.active = 0
@@ -193,8 +282,37 @@ export default {
         this.active = 1
       }
     },
-    loginForm() {},
-    registerForm() {}
+    loginForm() {
+      this.loginloading = true
+      this.$store
+        .dispatch('user/login', this.loginData)
+        .then(data => {
+          Toast.success('登录成功')
+          this.loginloading = false
+          this.$router.push({ path: '/' })
+        })
+        .catch(error => {
+          this.loginloading = false
+          console.log(error)
+        })
+    },
+    registerForm() {
+      this.registerloading = true
+      this.$store
+        .dispatch('user/register', this.register)
+        .then(data => {
+          Toast.success({ duration: 2000, message: '注册成功' })
+          setTimeout(() => {
+            this.active = 1
+            this.register = Object.assign({}, this.$data.register, this.$options.data().register)
+            this.registerloading = false
+          }, 2000)
+        })
+        .catch(error => {
+          this.registerloading = false
+          console.log(error)
+        })
+    }
   }
 }
 </script>

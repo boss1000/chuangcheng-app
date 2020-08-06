@@ -1,9 +1,9 @@
 import axios from 'axios'
 import store from '@/store'
-import { Toast } from 'vant'
+// import { Toast } from 'vant'
 // 根据环境不同引入不同api地址
 import { baseApi } from '@/config'
-import { getLocalStore } from '@/utils/auth'
+import { getToken } from '@/utils/auth'
 
 // create an axios instance
 const service = axios.create({
@@ -18,12 +18,12 @@ service.interceptors.request.use(
     // 不传递默认开启loading
     if (!config.hideloading) {
       // loading
-      Toast.loading({
-        forbidClick: true
-      })
+      // Toast.loading({
+      //   forbidClick: true
+      // })
     }
     if (store.getters.token) {
-      config.headers['Authorization'] = 'Bearer ' + getLocalStore('login_token')
+      config.headers['Authorization'] = 'Bearer ' + getToken('Admin-Token')
     }
     return config
   },
@@ -36,7 +36,7 @@ service.interceptors.request.use(
 // respone拦截器
 service.interceptors.response.use(
   response => {
-    Toast.clear()
+    // Toast.clear()
     const res = response.data
     if (res.status && res.status !== 200) {
       // 登录超时,重新登录
@@ -51,7 +51,7 @@ service.interceptors.response.use(
     }
   },
   error => {
-    Toast.clear()
+    // Toast.clear()
     console.log('err' + error) // for debug
     return Promise.reject(error)
   }

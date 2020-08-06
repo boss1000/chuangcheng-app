@@ -149,3 +149,7 @@ Vue.use(Calendar)
 import { Picker } from 'vant'
 
 Vue.use(Picker)
+
+import { PullRefresh } from 'vant'
+
+Vue.use(PullRefresh)

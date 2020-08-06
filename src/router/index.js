@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import store from '@/store/index'
 import { constantRouterMap } from './router.config.js'
+import { IsLogin } from '@/api/user.js'
 
 // hack router push callback
 const originalPush = Router.prototype.push
@@ -31,7 +32,22 @@ export function resetRouter() {
 router.beforeEach((to, from, next) => {
   if (to.meta.requireAuth) {
     if (store.getters.token) {
-      next()
+      IsLogin()
+        .then(data => {
+          if (data.code === 1) {
+            next()
+          } else {
+            next({
+              path: '/login'
+            })
+          }
+        })
+        .catch(error => {
+          next({
+            path: '/login'
+          })
+          console.log(error)
+        })
     } else {
       next({
         path: '/login'

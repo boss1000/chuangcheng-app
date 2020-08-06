@@ -1,74 +1,119 @@
 <!-- home -->
 <template>
-  <div class="index-container">
-    <div class="warpper">
-      <h1 class="demo-home__title"><img src="https://imgs.solui.cn/weapp/logo.png" /><span> VUE H5开发模板</span></h1>
-      <h2 class="demo-home__desc">
-        A vue h5 template with Vant UI
-      </h2>
-    </div>
-    <van-cell icon="success" v-for="item in list" :key="item" :title="item" />
-  </div>
+  <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
+    <van-list
+      class="homeList"
+      v-model="loading"
+      :finished="finished"
+      finished-text="没有更多了"
+      @load="onLoad"
+    >
+      <div class="buildContent" v-for="item in infoList" :key="item.FID">
+        <span class="buildTime">{{item.FCreatTime}}</span>
+        <div class="buildBox">
+          <img :src="`http://ccapi.chuanchengfc.com//api/Filse/GetAdvertImg?FID=${item.FID}`" alt />
+          <div class="buildText">{{item.FTitle}}</div>
+        </div>
+      </div>
+    </van-list>
+  </van-pull-refresh>
 </template>
 
 <script>
+import { GetLoanAdvert } from '@/api/home'
 export default {
   data() {
     return {
-      list: [
-        'Vue-cli4',
-        '配置多环境变量',
-        'VantUI 组件按需加载',
-        'Sass 全局样式',
-        'Webpack 4',
-        'Vuex 状态管理',
-        'Axios 封装及接口管理',
-        'Vue-router',
-        'Webpack 4 vue.config.js 基础配置',
-        '配置 proxy 跨域',
-        '配置 alias 别名',
-        '配置 打包分析',
-        '配置 externals 引入 cdn 资源',
-        '去掉 console.log',
-        'splitChunks 单独打包第三方模块',
-        '添加 IE 兼容',
-        'Eslint+Pettier 统一开发规范'
-      ]
+      infoList: [],
+      loading: false,
+      finished: false,
+      refreshing: false,
+      pageNum: 1,
+      pageSize: 5
     }
   },
-
   computed: {},
+  mounted() {},
+  methods: {
+    onLoad() {
+      if (!this.finished) {
+        this.loading = true
+        this.pageNum += 1
+        this.$nextTick(() => {
+          this.getDataList(true)
+        })
+      }
+    },
+    getDataList(isPage) {
+      if (!isPage) {
+        // 判断是否为翻页
+        this.infoList = []
+        this.pageNum = 1
+      }
+      this.$nextTick(() => {
+        GetLoanAdvert({
+          curr: this.pageNum,
+          pageSize: this.pageSize
+        })
+          .then(data => {
+            this.infoList = this.infoList.concat(data.object)
+            this.loading = false
+            if (data.object.length < this.pageSize) {
+              this.finished = true
+            }
+          })
+          .catch(error => {
+            console.log(error)
+          })
+      })
+    },
+    onRefresh() {
+      // 清空列表数据
+      this.finished = false
 
-  mounted() { },
-
-  methods: {}
+      // 重新加载数据
+      // 将 loading 设置为 true，表示处于加载状态
+      this.loading = true
+      this.onLoad()
+    }
+  }
 }
 </script>
 <style lang="scss" scoped>
-.index-container {
-  .warpper {
-    padding: 12px;
-    background: #fff;
-    .demo-home__title {
-      margin: 0 0 6px;
-      font-size: 32px;
-      .demo-home__title img,
-      .demo-home__title span {
-        display: inline-block;
-        vertical-align: middle;
-      }
-      img {
-        width: 32px;
-      }
-      span {
-        margin-left: 16px;
-        font-weight: 500;
-      }
+.homeList {
+  padding: 0 20px;
+  background: #fff;
+  .buildContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0;
+    .buildTime {
+      background: #e2e2e2;
+      padding: 4px 10px;
+      border-radius: 5px;
+      margin-bottom: 10px;
     }
-    .demo-home__desc {
-      margin: 0 0 20px;
-      color: rgba(69, 90, 100, 0.6);
-      font-size: 14px;
+    .buildBox {
+      position: relative;
+      width: 100%;
+      height: 200px;
+      cursor: pointer;
+      img {
+        width: 100%;
+        height: 100%;
+      }
+      .buildText {
+        position: absolute;
+        top: 170px;
+        height: 30px;
+        width: 100%;
+        line-height: 30px;
+        color: #fff;
+        padding: 0 10px;
+        background-color: rgba(0, 0, 0, 0.6);
+      }
     }
   }
 }
