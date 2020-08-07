@@ -19,6 +19,12 @@ export const constantRouterMap = [
         meta: { title: '一手楼盘', keepAlive: true, requireAuth: true }
       },
       {
+        path: '/homeDetail',
+        name: 'HomeDetail',
+        component: () => import('@/views/home/detail'),
+        meta: { title: '详情', keepAlive: true, requireAuth: true, hiddenBottom: true }
+      },
+      {
         path: '/chatroom',
         name: 'Chatroom',
         component: () => import('@/views/chatroom'),
@@ -27,7 +33,7 @@ export const constantRouterMap = [
       {
         path: '/about',
         name: 'About',
-        component: () => import('@/views/home/about'),
+        component: () => import('@/views/mine/index'),
         meta: { title: '个人管理', keepAlive: true, requireAuth: true }
       }
     ]
