@@ -35,6 +35,7 @@ router.beforeEach((to, from, next) => {
       IsLogin()
         .then(data => {
           if (data.code === 1) {
+            store.dispatch('user/setLoginData', data.object)
             next()
           } else {
             next({

@@ -2,11 +2,12 @@
   <div class="mineBox">
     <div class="mineTitle">
       <avatarUpload></avatarUpload>
+      <span class="userName">{{loginData.UserName}}</span>
     </div>
     <van-cell
       :border="false"
       title="联系电话"
-      value="13587985146"
+      :value="loginData.FMobile"
       class="van-hairline--bottom"
       @click="openFollow"
     />
@@ -37,6 +38,7 @@
 <script>
 import { removeToken } from '@/utils/auth'
 import { Dialog } from 'vant'
+import { mapGetters } from 'vuex'
 import avatarUpload from '@/components/avatarUpload'
 export default {
   data() {
@@ -45,6 +47,10 @@ export default {
     }
   },
   components: { avatarUpload },
+  computed: {
+    ...mapGetters(['loginData'])
+  },
+  mounted() {},
   methods: {
     openchangepsd() {
       this.$router.push({
@@ -53,7 +59,7 @@ export default {
     },
     openFollow() {
       this.$router.push({
-        name: 'followProject'
+        name: 'HouseManagement'
       })
     },
     loginOut() {
@@ -84,13 +90,17 @@ export default {
   height: calc(100vh);
   background: #fff;
   .mineTitle {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
     width: 100%;
     height: 180px;
     background: url('../../assets/pic_dingbu@3x.png');
     background-size: 100% 100%;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
+    .userName {
+      font-size: 16px;
+    }
   }
 }
 </style>

@@ -153,3 +153,11 @@ Vue.use(Picker)
 import { PullRefresh } from 'vant'
 
 Vue.use(PullRefresh)
+
+import { Uploader } from 'vant'
+
+Vue.use(Uploader)
+
+import { SwipeCell } from 'vant';
+
+Vue.use(SwipeCell);

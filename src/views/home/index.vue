@@ -13,7 +13,7 @@
         <div class="buildContent float-item" v-for="item in infoList" :key="item.FID">
           <span class="buildTime">{{item.FCreatTime}}</span>
           <div class="buildBox" @click="openDetail(item)">
-            <img :src="`http://ccapi.chuanchengfc.com//api/Filse/GetAdvertImg?FID=${item.FID}`" alt />
+            <img :src="`http://ccapi.chuanchengfc.com/api/Filse/GetAdvertImg?FID=${item.FID}`" alt />
             <div class="buildText">{{item.FTitle}}</div>
           </div>
         </div>
@@ -48,7 +48,9 @@ export default {
     onLoad() {
       if (!this.finished) {
         this.loading = true
-        this.pageNum += 1
+        if (this.infoList.length > 0) {
+          this.pageNum += 1
+        }
         this.$nextTick(() => {
           this.getDataList(true)
         })
@@ -92,6 +94,9 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+/deep/ .van-pull-refresh__track {
+  width: 100%;
+}
 .content {
   // width: 100%;
   height: calc(100vh - 50px);

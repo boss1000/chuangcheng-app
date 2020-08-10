@@ -35,6 +35,18 @@ export const constantRouterMap = [
         name: 'About',
         component: () => import('@/views/mine/index'),
         meta: { title: '个人管理', keepAlive: true, requireAuth: true }
+      },
+      {
+        path: '/HouseManagement',
+        name: 'HouseManagement',
+        component: () => import('@/views/HouseManagement/index'),
+        meta: { title: '房源管理', requireAuth: true, hiddenBottom: true }
+      },
+      {
+        path: '/InfoDelivery',
+        name: 'InfoDelivery',
+        component: () => import('@/views/InfoDelivery/index'),
+        meta: { title: '精准发布', requireAuth: true, hiddenBottom: true }
       }
     ]
   },

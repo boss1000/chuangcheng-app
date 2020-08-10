@@ -49,6 +49,9 @@ export default {
   components: {
     TabBar
   },
+  mounted() {
+    this.$store.dispatch('app/setPhone')
+  },
   methods: {
     handleChange(v) {
       console.log('tab value:', v)

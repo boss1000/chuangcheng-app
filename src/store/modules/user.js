@@ -5,13 +5,17 @@ import { setLocalStore } from '@/utils/auth.js'
 
 const state = {
   token: getToken(),
-  account: '',
-  name: ''
+  loginData: {}
 }
 
 const mutations = {
   SET_TOKEN: (state, token) => {
     state.token = token
+  },
+  SET_LOGINDATA: (state, data) => {
+    if (state.loginData && Object.keys(state.loginData).length === 0) {
+      state.loginData = Object.assign({}, state.loginData, data)
+    }
   }
 }
 
@@ -53,6 +57,7 @@ const actions = {
       commit('SET_ACCOUNT', '')
       commit('SET_TOKEN', '')
       commit('SET_ROLES', [])
+      commit('SET_LOGINDATA', {})
       sessionStorage.removeItem('userRoles')
       removeToken()
       router.push({
@@ -70,6 +75,9 @@ const actions = {
       removeToken()
       resolve()
     })
+  },
+  setLoginData({ commit }, loginData) {
+    commit('SET_LOGINDATA', loginData)
   }
 }
 
