@@ -9,7 +9,7 @@
       title="联系电话"
       :value="loginData.FMobile"
       class="van-hairline--bottom"
-      @click="openFollow"
+      @click="openPhone"
     />
     <van-cell
       :border="false"
@@ -23,7 +23,7 @@
       title="我的收藏"
       class="van-hairline--bottom"
       is-link
-      @click="openFollow"
+      @click="openCollection"
     />
     <van-cell
       :border="false"
@@ -52,9 +52,26 @@ export default {
   },
   mounted() {},
   methods: {
+    openPhone() {
+      Dialog.confirm({
+        title: '是否拨打电话',
+        message: `电话:${this.loginData.FMobile}`
+      })
+        .then(() => {
+          window.location.href = `tel://${this.loginData.FMobile}`
+        })
+        .catch(() => {
+          // on cancel
+        })
+    },
     openchangepsd() {
       this.$router.push({
         name: 'changePsd'
+      })
+    },
+    openCollection() {
+      this.$router.push({
+        name: 'InfoList'
       })
     },
     openFollow() {

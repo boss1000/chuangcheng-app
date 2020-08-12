@@ -22,11 +22,15 @@ import '@/assets/css/index.scss'
 import '@/assets/css/base.scss'
 // 移动端适配
 import 'lib-flexible/flexible.js'
-
+import Element from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
 // filters
 import './filters'
 Vue.config.productionTip = false
 Vue.use(VueTouch, { name: 'v-touch' })
+Vue.use(Element, {
+  size: 'small' // set element-ui default size
+})
 
 new Vue({
   el: '#app',

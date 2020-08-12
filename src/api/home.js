@@ -66,3 +66,13 @@ export function UpLoadHeadImg(data) {
     }
   })
 }
+
+// 获取收藏
+export function GetCollections(data) {
+  return request({
+    url: '/api/Collections/GetCollections',
+    method: 'post',
+    data
+  })
+}
+

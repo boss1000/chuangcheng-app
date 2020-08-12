@@ -47,6 +47,12 @@ export const constantRouterMap = [
         name: 'InfoDelivery',
         component: () => import('@/views/InfoDelivery/index'),
         meta: { title: '精准发布', requireAuth: true, hiddenBottom: true }
+      },
+      {
+        path: '/InfoList',
+        name: 'InfoList',
+        component: () => import('@/views/InfoList/index'),
+        meta: { title: '信息列表', requireAuth: true, hiddenBottom: true }
       }
     ]
   },

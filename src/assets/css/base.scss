@@ -217,3 +217,50 @@ img {
 .van-button {
   cursor: pointer;
 }
+
+.commonBase {
+  .content {
+    // width: 100%;
+    height: calc(100vh - 60px);
+    background: #fff;
+    display: flex;
+    overflow: scroll;
+    .homeList {
+      padding: 0 20px;
+      font-size: 16px;
+      .buildContent {
+        padding-top: 20px;
+        .van-row {
+          padding-bottom: 10px;
+          .callPhone {
+            color: #3399ea;
+            cursor: pointer;
+          }
+          &.rowButtun {
+            border-top: solid 1px rgba(0, 0, 0, 0.2);
+            padding: 5px 2px 5px 0;
+            /deep/ .van-button {
+              margin-right: 10px;
+              border-radius: 15px;
+              width: 60px;
+              height: 24px;
+              color: #000;
+              border-color: rgba(0, 0, 0, 0.4);
+              &:last-child {
+                margin: 0;
+              }
+            }
+          }
+          /deep/.van-button--hairline::after {
+            border-radius: 50px;
+          }
+        }
+      }
+      .delete-button {
+        margin-left: 10px;
+        text-align: center;
+        height: 100%;
+      }
+    }
+  }
+}
