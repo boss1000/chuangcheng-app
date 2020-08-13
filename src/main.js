@@ -15,6 +15,7 @@ import './icons' // icon
 
 Vue.prototype.$cdn = $cdn
 
+import '@vant/touch-emulator';
 // 全局引入按需引入UI库 vant
 import '@/plugins/vant'
 // 引入全局样式

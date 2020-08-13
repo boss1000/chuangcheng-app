@@ -30,7 +30,7 @@ export default {
         {
           title: '',
           to: {
-            name: 'Home'
+            name: 'Chatroom'
           },
           normal: require('@/assets/ic_qipao@3x.png'),
           active: require('@/assets/ic_qipao@3x.png')

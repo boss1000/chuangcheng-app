@@ -36,7 +36,7 @@
   </div>
 </template>
 <script>
-import { removeToken } from '@/utils/auth'
+import { removeToken, removeLocalStore } from '@/utils/auth'
 import { Dialog } from 'vant'
 import { mapGetters } from 'vuex'
 import avatarUpload from '@/components/avatarUpload'
@@ -86,10 +86,10 @@ export default {
       })
         .then(() => {
           removeToken()
-          sessionStorage.removeItem('userRoles')
+          removeLocalStore('loginInfo')
           this.$nextTick(() => {
             this.$router.push({
-              name: 'login'
+              name: 'Login'
             })
           })
         })

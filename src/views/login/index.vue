@@ -287,9 +287,14 @@ export default {
       this.$store
         .dispatch('user/login', this.loginData)
         .then(data => {
-          Toast.success('登录成功')
-          this.loginloading = false
-          this.$router.push({ path: '/' })
+          if (data.code === 1) {
+            Toast.success('登录成功')
+            this.loginloading = false
+            this.$router.push({ path: '/' })
+          } else {
+            Toast.fail(data.message)
+            this.loginloading = false
+          }
         })
         .catch(error => {
           this.loginloading = false

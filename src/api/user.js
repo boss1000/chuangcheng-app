@@ -53,3 +53,12 @@ export function CheckNickName(data) {
     params: data
   })
 }
+
+// 修改密码
+export function MolPassword(data) {
+  return request({
+    url: '/api/User/MolPassword',
+    method: 'get',
+    params: data
+  })
+}
