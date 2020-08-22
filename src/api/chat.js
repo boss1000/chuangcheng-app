@@ -17,3 +17,12 @@ export function GetUserInfo(data) {
     data
   })
 }
+
+// 登录
+export function SearchLogList(data) {
+  return request({
+    url: '/api/ChatRoom/SearchLogList',
+    method: 'post',
+    data
+  })
+}

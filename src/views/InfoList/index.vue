@@ -11,7 +11,7 @@
         @load="onLoad"
       >
         <div class="van-clearfix">
-          <div class="buildContent float-item" v-for="item in infoList" :key="item.FID">
+          <van-swipe-cell class="buildContent float-item" v-for="item in infoList" :key="item.FID">
             <div class="buildBox" v-html="item.FContent"></div>
             <van-row class="phoneBox">
               <van-col span="12">{{item.FLinkTel}}</van-col>
@@ -19,7 +19,35 @@
                 <span class="callPhone" @click="openphone(item.FLinkTel)">点击拨打</span>
               </van-col>
             </van-row>
-          </div>
+            <template #right>
+              <van-button
+                v-if="isSearch"
+                class="delete-button"
+                square
+                type="primary"
+                text="复制"
+                v-clipboard:copy="hanlderInfo(item.FContent)"
+                v-clipboard:success="onCopy"
+                v-clipboard:error="onError"
+              />
+              <van-button
+                v-if="isSearch"
+                class="info-button"
+                square
+                type="info"
+                text="收藏"
+                @click="collection(item)"
+              />
+              <van-button
+                v-if="!isSearch"
+                class="delete-button"
+                square
+                type="danger"
+                text="删除"
+                @click="deleteItem(item)"
+              />
+            </template>
+          </van-swipe-cell>
         </div>
       </van-list>
     </van-pull-refresh>
@@ -28,11 +56,15 @@
 
 <script>
 import { Toast, Dialog } from 'vant'
-import { GetCollections } from '@/api/home'
+import { GetCollections, DelCollection, InsCollection } from '@/api/home'
+import { SearchLogList } from '@/api/chat'
 export default {
   data() {
     return {
+      title: '我的收藏',
+      fromData: {},
       infoList: [],
+      isSearch: false, // 是否为搜索
       loading: false,
       finished: false,
       refreshing: false,
@@ -41,14 +73,15 @@ export default {
       scrollTop: 0
     }
   },
-  props: {
-    title: {
-      type: String,
-      default: '我的收藏'
+  watch: {},
+  mounted() {
+    if (Object.keys(this.$route.params).length > 0) {
+      const { title, ...fromData } = this.$route.params
+      this.isSearch = true
+      this.title = title
+      this.fromData = Object.assign({}, this.fromData, fromData)
     }
   },
-  computed: {},
-  mounted() {},
   methods: {
     onLoad() {
       if (!this.finished) {
@@ -62,16 +95,27 @@ export default {
       }
     },
     getDataList(isPage) {
-      GetCollections({
-        curr: !isPage ? 1 : this.pageNum,
-        pageSize: this.pageSize
-      })
-        .then(data => {
-          this.dataHlander(isPage, data)
+      if (this.isSearch) {
+        SearchLogList(this.fromData)
+          .then(data => {
+            this.infoList = data.object
+            this.finished = true
+          })
+          .catch(error => {
+            console.log(error)
+          })
+      } else {
+        GetCollections({
+          curr: !isPage ? 1 : this.pageNum,
+          pageSize: this.pageSize
         })
-        .catch(error => {
-          console.log(error)
-        })
+          .then(data => {
+            this.dataHlander(isPage, data)
+          })
+          .catch(error => {
+            console.log(error)
+          })
+      }
     },
     dataHlander(isPage, data) {
       this.infoList = !isPage ? data.object : this.infoList.concat(data.object)
@@ -105,6 +149,51 @@ export default {
         .catch(() => {
           // on cancel
         })
+    },
+    deleteItem(rowData) {
+      Dialog.confirm({
+        title: '提示',
+        message: `是否删除此收藏`
+      })
+        .then(() => {
+          DelCollection({ FColID: rowData.FID }).then(data => {
+            if (data.code === 1) {
+              Toast('删除成功')
+              let delIndex = ''
+              this.infoList.map((item, index) => {
+                if (item.FID === rowData.FID) {
+                  delIndex = index
+                }
+              })
+              this.infoList.splice(delIndex, 1)
+              // this.getDataList(false)
+            } else {
+              Toast('删除失败')
+            }
+          })
+        })
+        .catch(() => {
+          // on cancel
+        })
+    },
+    hanlderInfo(item) {
+      const hanlerData = item.replace(/<(?!br).*?>/g, '').replace(/<br\/>/g, ' \n')
+      return hanlerData
+    },
+    onCopy(item) {
+      Toast.success('复制成功！')
+    },
+    onError(item) {
+      Toast.fail('复制失败！')
+    },
+    collection(item) {
+      InsCollection({ FChatID: item.FID }).then(data => {
+        if (data.code === 1) {
+          Toast('收藏成功')
+        } else {
+          Toast('收藏失败')
+        }
+      })
     }
   }
 }
@@ -131,5 +220,10 @@ export default {
     -webkit-transform: scaleY(0.5);
     transform: scaleY(0.5);
   }
+}
+.info-button {
+  margin-left: 1px;
+  text-align: center;
+  height: 100%;
 }
 </style>

@@ -27,6 +27,11 @@ import Element from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 // filters
 import './filters'
+// 复制到粘贴板插件
+import VueClipboard from 'vue-clipboard2'
+
+VueClipboard.config.autoSetContainer = true
+Vue.use(VueClipboard)
 Vue.config.productionTip = false
 Vue.use(VueTouch, { name: 'v-touch' })
 Vue.use(Element, {

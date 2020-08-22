@@ -48,7 +48,7 @@ export function MolPrecisePub(data) {
 export function AddPrecisePub(data) {
   return request({
     url: '/api/ChatRoom/AddPrecisePub',
-    method: 'get',
+    method: 'post',
     data
   })
 }
@@ -76,3 +76,20 @@ export function GetCollections(data) {
   })
 }
 
+// 添加收藏
+export function InsCollection(data) {
+  return request({
+    url: '/api/Collections/InsCollection',
+    method: 'get',
+    params: data
+  })
+}
+
+// 删除收藏
+export function DelCollection(data) {
+  return request({
+    url: '/api/Collections/DelCollection',
+    method: 'get',
+    params: data
+  })
+}

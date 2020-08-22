@@ -2,20 +2,25 @@
   <div id="report" class="commonBase">
     <van-nav-bar left-arrow class="commonTitle" @click-left="onClickLeft" title="修改密码" />
     <van-form class="auth-form" @submit="postForm">
-      <van-field
-        v-model="fromData.testpassword"
-        name="新密码"
-        label="新密码"
-        placeholder="请填写新密码"
-        :rules="[{ required: true, message: '请填写新密码' }]"
-      />
-      <van-field
-        v-model="fromData.newpassword"
-        name="确认新密码"
-        label="确认新密码"
-        placeholder="请再次输入新密码"
-        :rules="[{ validator: phoneValidator, message: validator.newpassword }]"
-      />
+      <div class="searchContent">
+        <van-field
+          v-model="fromData.testpassword"
+          name="新密码"
+          label="新密码"
+          placeholder="请填写新密码"
+          :border="false"
+          :rules="[{ required: true, message: '请填写新密码' }]"
+        />
+        <van-field
+          v-model="fromData.newpassword"
+          name="确认新密码"
+          label="确认新密码"
+          placeholder="请再次输入新密码"
+          :border="false"
+          :rules="[{ validator: phoneValidator, message: validator.newpassword }]"
+        />
+      </div>
+
       <van-button type="info" block native-type="submit">确认修改</van-button>
     </van-form>
   </div>
@@ -74,4 +79,17 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  border-radius: 0;
+  line-height: 27px;
+  text-align: center;
+  /deep/ .van-cell {
+    // padding-bottom: 0px;
+  }
+  .searchContent {
+    flex-grow: 1;
+  }
+}
 </style>

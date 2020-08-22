@@ -28,7 +28,12 @@ export const constantRouterMap = [
         path: '/chatroom',
         name: 'Chatroom',
         component: () => import('@/views/chatroom'),
-        meta: { title: '个管理', keepAlive: true, requireAuth: true, hiddenBottom: true }
+        meta: { title: '聊天室', keepAlive: true, requireAuth: true, hiddenBottom: true }
+      }, {
+        path: '/ChatroomSearch',
+        name: 'ChatroomSearch',
+        component: () => import('@/views/chatroom/search'),
+        meta: { title: '聊天室搜索', keepAlive: true, requireAuth: true, hiddenBottom: true }
       },
       {
         path: '/about',
