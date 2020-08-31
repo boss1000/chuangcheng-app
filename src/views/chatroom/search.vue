@@ -12,7 +12,7 @@
           <van-col span="9">
             <van-field v-model="fromData.FAreaBegin" @input="inputChange('FAreaBegin')" />
           </van-col>
-          <van-col span="2">-</van-col>
+          <van-col span="1">-</van-col>
           <van-col span="9">
             <van-field v-model="fromData.FAreaEnd" @input="inputChange('FAreaEnd')" />
           </van-col>
@@ -22,7 +22,7 @@
           <van-col span="9">
             <van-field v-model="fromData.FPriceBegin" @input="inputChange('FPriceBegin')" />
           </van-col>
-          <van-col span="2">-</van-col>
+          <van-col span="1">-</van-col>
           <van-col span="9">
             <van-field v-model="fromData.FPriceEnd" @input="inputChange('FPriceEnd')" />
           </van-col>

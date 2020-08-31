@@ -41,15 +41,24 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+.auth-form {
+  padding: 0;
+  margin: 0px;
+}
+.commonBase .content {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
 </style>
 <style lang="less">
-pre {
-  white-space: pre-wrap;
-  white-space: -moz-pre-wrap;
-  white-space: -pre-wrap;
-  white-space: -o-pre-wrap;
-  word-wrap: break-word;
-}
+// pre {
+//   white-space: pre-wrap;
+//   white-space: -moz-pre-wrap;
+//   white-space: -pre-wrap;
+//   white-space: -o-pre-wrap;
+//   word-wrap: break-word;
+// }
 .showSharePoup {
   .van-image-preview__image {
     display: flex;

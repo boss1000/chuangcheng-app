@@ -298,6 +298,9 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.commonBase {
+  overflow: hidden;
+}
 .auth-form {
   overflow: scroll;
   border-radius: 0;
@@ -426,6 +429,7 @@ export default {
   .optionText {
     padding: 0;
     margin: 0 10px;
+    min-height: 28px;
   }
   .optionButtom {
     width: 45px;
