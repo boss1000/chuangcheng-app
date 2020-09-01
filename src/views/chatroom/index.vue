@@ -100,6 +100,20 @@ export default {
     this.commonBase = document.querySelector('.auth-form') // 获取对象
     this.getData()
     this.setSocket()
+    // const userAgent = navigator.userAgent
+    // const isiOS = !!userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)
+    // if (!isiOS) {
+    //   setTimeout(() => {
+    //     const showHeight = document.body.offsetHeight - 200
+    //     document.body.animate(
+    //       {
+    //         scrollTop: showHeight
+    //       },
+    //       'normal',
+    //       'linear'
+    //     )
+    //   }, 200)
+    // }
   },
   computed: {
     ...mapGetters(['loginData', 'isPhone']),

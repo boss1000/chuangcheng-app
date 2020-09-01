@@ -85,9 +85,19 @@ export default {
   border-radius: 0;
   line-height: 27px;
   text-align: center;
-  /deep/ .van-cell {
-    // padding-bottom: 0px;
-  }
+  // /deep/ .van-cell {
+  //   // padding-bottom: 0px;
+  //   .van-field__value {
+  //     border: solid 1px #ccc;
+  //     height: 28px;
+  //     line-height: 28px;
+  //     .van-field__control {
+  //       height: 28px;
+  //       line-height: 28px;
+  //       border: none;
+  //     }
+  //   }
+  // }
   .searchContent {
     flex-grow: 1;
   }

@@ -10,21 +10,41 @@
         <van-row>
           <van-col span="4">面积</van-col>
           <van-col span="9">
-            <van-field v-model="fromData.FAreaBegin" @input="inputChange('FAreaBegin')" />
+            <van-field
+              v-model="fromData.FAreaBegin"
+              :border="false"
+              type="number"
+              @input="inputChange('FAreaBegin')"
+            />
           </van-col>
           <van-col span="1">-</van-col>
           <van-col span="9">
-            <van-field v-model="fromData.FAreaEnd" @input="inputChange('FAreaEnd')" />
+            <van-field
+              v-model="fromData.FAreaEnd"
+              :border="false"
+              type="number"
+              @input="inputChange('FAreaEnd')"
+            />
           </van-col>
         </van-row>
         <van-row>
           <van-col span="4">价格</van-col>
           <van-col span="9">
-            <van-field v-model="fromData.FPriceBegin" @input="inputChange('FPriceBegin')" />
+            <van-field
+              v-model="fromData.FPriceBegin"
+              :border="false"
+              type="number"
+              @input="inputChange('FPriceBegin')"
+            />
           </van-col>
           <van-col span="1">-</van-col>
           <van-col span="9">
-            <van-field v-model="fromData.FPriceEnd" @input="inputChange('FPriceEnd')" />
+            <van-field
+              v-model="fromData.FPriceEnd"
+              :border="false"
+              type="number"
+              @input="inputChange('FPriceEnd')"
+            />
           </van-col>
         </van-row>
       </div>
@@ -72,17 +92,35 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+.commonBase {
+  position: relative;
+  height: calc(100vh);
+}
 .auth-form {
   display: flex;
   flex-direction: column;
   border-radius: 0;
   line-height: 27px;
   text-align: center;
-  /deep/ .van-cell {
-    padding-bottom: 0px;
-  }
+  position: relative;
   .searchContent {
     flex-grow: 1;
+    .van-field {
+      border: solid 1px #ccc;
+      height: 30px;
+      line-height: 30px;
+      position: relative;
+      height: 100%;
+      padding: 0;
+      /deep/ .van-field__control {
+        height: 26px;
+        line-height: 20px;
+        padding: 2px 0;
+        border: none;
+        text-indent: 5px;
+        font-size: 14px;
+      }
+    }
   }
 }
 .commonTitle {

@@ -363,7 +363,7 @@ export default {
         margin-top: 20px;
       }
       /deep/.van-field__left-icon {
-        height: 30px;
+        height: 29px;
         width: 32px;
         margin: 0;
         padding: 0 12px 0px 0;
