@@ -250,6 +250,13 @@ export default {
   methods: {
     onClickLeft() {
       this.$router.go(-1) // 返回上一层
+      // if (Object.keys(this.$route.params).length > 0) {
+      //   this.$router.replace({
+      //     name: 'Chatroom'
+      //   })
+      // } else {
+      //   this.$router.go(-1) // 返回上一层
+      // }
     },
     inputChange(key) {
       // 输入框值改变

@@ -72,6 +72,9 @@ export default {
   methods: {
     onClickLeft() {
       this.$router.go(-1) // 返回上一层
+      // this.$router.replace({
+      //   name: 'Chatroom'
+      // })
     },
     postForm() {
       SearchLogList(this.fromData).then(res => {

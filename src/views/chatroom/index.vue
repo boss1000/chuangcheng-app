@@ -251,7 +251,9 @@ export default {
     },
     linkphone(item) {},
     onClickLeft() {
-      this.$router.go(-1) // 返回上一层
+      this.$router.push({
+        name: 'Home'
+      }) // 返回上一层
     },
     goSearch() {
       this.$router.push({
@@ -260,7 +262,10 @@ export default {
     },
     optionAdd() {
       this.$router.push({
-        name: 'InfoDelivery'
+        name: 'InfoDelivery',
+        params: {
+          isChat: true
+        }
       })
     },
     infoSend() {
@@ -318,6 +323,7 @@ export default {
 .auth-form {
   overflow: scroll;
   border-radius: 0;
+  margin-bottom: 40px;
 }
 .van-list {
   display: flex;
@@ -435,7 +441,14 @@ export default {
   }
 }
 .infoOption {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 999;
+  width: 100%;
+  background: #e2e2e2;
   display: flex;
+  height: 40px;
   padding: 5px 10px;
   // height: 60px;
   .optionIcon {
