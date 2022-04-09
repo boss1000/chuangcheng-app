@@ -20,7 +20,7 @@
     "js-md5": "^0.7.3",
     "less-loader": "^5.0.0",
     "lib-flexible": "^0.3.2",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "postcss-px2rem": "^0.3.0",
     "postcss-pxtorem": "^5.1.1",
     "pubsub-js": "^1.8.0",
